@@ -25,54 +25,54 @@ def gather_data():
 	    airContext = json.loads(airQuality.content)
 
 	    if 'w' not in airContext['data']['iaqi'].keys():
-		airContext['data']['iaqi']['w'] = 0
+			airContext['data']['iaqi']['w'] = 0
 	    if 'o3' not in airContext['data']['iaqi'].keys():
-		airContext['data']['iaqi']['o3'] = 0
+			airContext['data']['iaqi']['o3'] = 0
 	    if 'p' not in airContext['data']['iaqi'].keys():
-		airContext['data']['iaqi']['p'] = 0
+			airContext['data']['iaqi']['p'] = 0
 	    if 'pm10' not in airContext['data']['iaqi'].keys():
-		airContext['data']['iaqi']['pm10'] = 0
+			airContext['data']['iaqi']['pm10'] = 0
 	    if 'wg' not in airContext['data']['iaqi'].keys():
-		airContext['data']['iaqi']['wg']  = 0
+			airContext['data']['iaqi']['wg']  = 0
 	    if 'dev' not in airContext['data']['iaqi'].keys():
-		airContext['data']['iaqi']['dev'] = 0
+			airContext['data']['iaqi']['dev'] = 0
 	    if 'so2' not in airContext['data']['iaqi'].keys():
-		airContext['data']['iaqi']['so2'] = 0
+			airContext['data']['iaqi']['so2'] = 0
 	    if 'pm25' not in airContext['data']['iaqi'].keys():
-		airContext['data']['iaqi']['pm25'] = 0
+			airContext['data']['iaqi']['pm25'] = 0
 
 	    values = {}
 	    for k in airContext['data']['iaqi'].keys():
-		if airContext['data']['iaqi'][k] == 0:
-		    values[k] = 0.0
-		else:
-		    values[k] = float(airContext['data']['iaqi'][k]['v'])
+			if airContext['data']['iaqi'][k] == 0:
+			    values[k] = 0.0
+			else:
+			    values[k] = float(airContext['data']['iaqi'][k]['v'])
 
 	    station_id[str(station['uid'])] = [
-		station['station']['name'],
-		station['station']['geo'],
-		station['station']['url'],
-		airContext['data']['iaqi']['so2'],
-		airContext['data']['iaqi']['o3'],
-		airContext['data']['iaqi']['p'],
-		airContext['data']['iaqi']['pm10'],
-		airContext['data']['iaqi']['wg'],
-		airContext['data']['iaqi']['dev'],
-		airContext['data']['iaqi']['pm25']
+			station['station']['name'],
+			station['station']['geo'],
+			station['station']['url'],
+			airContext['data']['iaqi']['so2'],
+			airContext['data']['iaqi']['o3'],
+			airContext['data']['iaqi']['p'],
+			airContext['data']['iaqi']['pm10'],
+			airContext['data']['iaqi']['wg'],
+			airContext['data']['iaqi']['dev'],
+			airContext['data']['iaqi']['pm25']
 	    ]
 
 	    data_for_database.append({
-		"measurement": "airQuality",
-		"tags": {
-		    "id": station['uid'],
-		    "name": station['station']['name'],
-		    "url": station['station']['url'],
-		    "location": " ".join([str(i) for i in station['station']['geo']])
-		},
-		"fields": values
+			"measurement": "airQuality",
+			"tags": {
+			    "id": station['uid'],
+			    "name": station['station']['name'],
+			    "url": station['station']['url'],
+			    "location": " ".join([str(i) for i in station['station']['geo']])
+			},
+			"fields": values
 	    })
 
-	client.write_points(data_for_database)
+		client.write_points(data_for_database)
 
 while 1:
 	gather_data()
