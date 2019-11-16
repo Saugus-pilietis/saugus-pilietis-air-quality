@@ -2,10 +2,12 @@ from influxdb import InfluxDBClient
 import requests
 import json
 import pprint
-host = "35.205.233.201"
-port = 8086
-username = "admin"
-password = "sauguspilietis123"
+import os
+
+host = os.getenv("INFLUXDB_HOST")
+port = os.getenv("INFLUXDB_PORT")
+username = os.getenv("INFLUXDB_USER")
+password = os.getenv("INFLUXDB_PASS")
 client = InfluxDBClient(host, port, username, password)
 client.switch_database('sauguspilietis')
 
