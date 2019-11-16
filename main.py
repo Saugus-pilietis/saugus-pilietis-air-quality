@@ -3,6 +3,7 @@ import requests
 import json
 import pprint
 import os
+import time
 
 host = os.getenv("INFLUXDB_HOST")
 port = os.getenv("INFLUXDB_PORT")
@@ -47,6 +48,7 @@ def gather_data():
                 values[k] = 0.0
             else:
                 values[k] = float(airContext['data']['iaqi'][k]['v'])
+        values['aqi'] = airContext['data']['aqi']
 
         station_id[str(station['uid'])] = [
             station['station']['name'],
