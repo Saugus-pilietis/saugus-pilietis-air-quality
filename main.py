@@ -5,6 +5,8 @@ import pprint
 import os
 import time
 
+time.sleep(5)
+
 host = os.getenv("INFLUXDB_HOST")
 port = os.getenv("INFLUXDB_PORT")
 username = os.getenv("INFLUXDB_USER")
@@ -78,4 +80,4 @@ def gather_data():
 
 while 1:
     gather_data()
-    time.sleep(30)
+    time.sleep(5 * 60)
